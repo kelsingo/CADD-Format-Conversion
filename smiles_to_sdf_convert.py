@@ -27,7 +27,7 @@ from rdkit import Chem
 # OpenBabel conversion
 def convert_with_openbabel(smiles_batch): 
     """ 
-    Convert SMILES to SDF using OpenBabel without creating temporary files.
+    Convert SMILES to SDF using OpenBabel.
     """     
     try:
         # Create a multiline SMILES string (simulating file content in memory)
