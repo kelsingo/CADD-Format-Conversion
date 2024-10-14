@@ -1,5 +1,5 @@
 """
-This script allows users to convert SMILES strings in a CSV File to and output SDF File. 
+This script allows users to convert SMILES strings in a CSV File to an output SDF File. 
 There are two conversion options: 
 1. Convert using OpenBabel 
 2. Covert using RDKit 
