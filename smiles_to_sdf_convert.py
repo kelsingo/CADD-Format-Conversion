@@ -1,3 +1,21 @@
+"""
+This script allows users to convert SMILES strings in a CSV File to and output SDF File. 
+There are two conversion options: 
+1. Convert using OpenBabel 
+2. Covert using RDKit 
+
+---------------------
+Input: 
+- a CSV file containing SMILES Strings 
+- The column that contains SMILES Strings in the CSV file 
+- Output file name 
+Output: 
+- An SDF File containing SDF format of all converted structures from SMILES Strings 
+
+----------------------
+The following code is implemented using ChatGPT's generation. 
+"""
+
 import subprocess
 from dask import delayed
 import dask
