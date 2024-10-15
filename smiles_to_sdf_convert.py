@@ -71,8 +71,19 @@ def smiles_to_sdf(smiles):
         print(f"Warning: Invalid SMILES '{smiles}' encountered, skipping.")
         return ""  # Return empty string for invalid SMILES
     mol = Chem.AddHs(mol)
-    sdf_block = Chem.MolToMolBlock(mol)
-    return sdf_block
+
+    try:
+        AllChem.EmbedMolecule(mol)
+        AllChem.UFFOptimizeMolecule(mol)
+        sdf_block = Chem.MolToMolBlock(mol)
+        return sdf_block
+    except ValueError as e:
+        print(f"Error processing SMILES '{smiles}': {e}")
+        return ""  # Skip problematic molecules
+    except RuntimeError as e:
+        # Handle UFF parameter failure
+        print(f"UFF optimization failed for SMILES '{smiles}' due to atom types: {e}")
+        return ""  # Skip problematic molecules
 
 def parallel_convert_using_rdkit(smiles_series):
     """Convert SMILES strings to SDF format in parallel."""
