@@ -60,7 +60,7 @@ def parallel_convert_using_openbabel(smiles_list, output_sdf):
     sdf_results = dd.compute(*delayed_tasks)
 
     # Write all the SDF results to the output SDF file
-    write_sdf_file(sdf_results, output_sdf)
+    write_sdf_file(sdf_results, output_sdf, rdkit=False)
 
     print(f"Successfully converted SMILES to SDF. Output saved to {output_sdf}")
 
@@ -95,13 +95,16 @@ def parallel_convert_using_rdkit(smiles_series):
     sdf_results = dask.compute(*delayed_tasks)
     return sdf_results
 
-def write_sdf_file(sdf_results, output_file):
+def write_sdf_file(sdf_results, output_file, rdkit=False):
     """Write the SDF results into a single output SDF file."""
     with open(output_file, 'w') as f:
         for sdf in sdf_results:
             if sdf:  # Check if sdf is not None
-                f.write(sdf)
-                f.write("\n$$$$\n") 
+                if rdkit:
+                    f.write(sdf.rstrip()) 
+                    f.write("\n$$$$\n")
+                else: 
+                    f.write(sdf)
 
 def main():
     # Get user input 
@@ -124,7 +127,7 @@ def main():
         sdf_results = parallel_convert_using_rdkit(smiles_list)
 
         # Write to output SDF file
-        write_sdf_file(sdf_results, output_sdf)
+        write_sdf_file(sdf_results, output_sdf, rdkit=True)
     else: 
         print("Invalid choice. Please select 1 or 2.")
 
