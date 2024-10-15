@@ -23,6 +23,7 @@ import dask.dataframe as dd
 import os
 
 from rdkit import Chem
+from rdkit.Chem import AllChem
 
 # OpenBabel conversion
 def convert_with_openbabel(smiles_batch): 
@@ -100,6 +101,7 @@ def write_sdf_file(sdf_results, output_file):
         for sdf in sdf_results:
             if sdf:  # Check if sdf is not None
                 f.write(sdf)
+                f.write("\n$$$$\n") 
 
 def main():
     # Get user input 
