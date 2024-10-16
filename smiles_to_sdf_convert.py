@@ -43,11 +43,11 @@ def convert_with_openbabel(smiles_batch):
             # Capture the stdout (SDF output)
             sdf_results.append(process.stdout) # Return the SDF output as a string
         except subprocess.CalledProcessError as e:
-            print(f"Error occurred while converting batch with OpenBabel: {e}")
+            print(f"Error: {e} occurred while converting {smile}")
             error_count += 1
             return None
         except Exception as e:
-            print(f"An unexpected error occurred: {e}")
+            print(f"Error: {e} occurred while converting {smile}")
             error_count += 1
             return None
     return sdf_results, error_count
